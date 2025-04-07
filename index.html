@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape the Future of Robotics - IRI | Institut de Robòtica i Informàtica Industrial</title>
+    <meta name="description" content="Join the Institut de Robòtica i Informàtica Industrial (IRI) and shape the future. Explore opportunities for researchers, engineers, PhDs, and postdocs.">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+
+    <!-- Optional: Google Fonts (Example: Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon Placeholder (replace with actual favicon) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+
+    <style>
+        /* Base font */
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Scroll Animation Classes */
+        .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* Mobile Menu Animation */
+        #mobile-menu { transition: transform 0.3s ease-in-out; }
+        #mobile-menu.hidden { transform: translateX(100%); }
+
+        /* Video Background */
+        #hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -100; transform: translateX(-50%) translateY(-50%); background-size: cover; }
+
+        /* --- Fixed Background Container for #why-join --- */
+        #why-join-background-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            z-index: -1; /* Behind main content */
+            overflow: hidden;
+            /* Hidden by default */
+            opacity: 0;
+            pointer-events: none; /* Disable interaction when hidden */
+            transition: opacity 0.5s ease-in-out; /* Smooth fade for container */
+        }
+        #why-join-background-container.visible {
+            opacity: 1;
+            pointer-events: auto; /* Enable interaction when visible */
+        }
+
+        #why-join-background-container img {
+            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out; /* Smooth fade for images inside */
+            z-index: 1; /* Below overlay */
+        }
+         /* Optional Overlay */
+         #why-join-background-container::after {
+            content: ''; position: absolute; inset: 0;
+            background-color: rgba(0, 0, 0, 0.3); /* Adjust darkness */
+            z-index: 2; /* Above inactive images, below active */
+         }
+
+        #why-join-background-container img.active-bg {
+            opacity: 1; /* Show active image */
+            z-index: 3; /* Active image above overlay */
+        }
+        /* --- End Fixed Background Styles --- */
+
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <div class="flex-shrink-0"> <a href="#hero" aria-label="Homepage"> <img class="h-10 md:h-12 w-auto" src="assets/iri_logo.png" alt="Institut de Robòtica i Informàtica Industrial Logo"> </a> </div>
+                <nav class="hidden md:flex space-x-8"> <a href="#why-join" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Why Join Us</a> <a href="#life" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Life Here</a> <a href="#opportunities" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Opportunities</a> <a href="#ecosystem" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Ecosystem</a> <a href="#apply" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Apply</a> </nav>
+                <div class="md:hidden flex items-center"> <button id="mobile-menu-button" class="text-gray-600 hover:text-blue-600 focus:outline-none" aria-label="Open main menu"> <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg> </button> </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden fixed inset-y-0 right-0 w-64 bg-white shadow-xl z-60 p-6 transform translate-x-full md:hidden">
+             <div class="flex justify-between items-center mb-8"> <a href="#hero" aria-label="Homepage"> <img class="h-8 w-auto" src="assets/iri_logo.png" alt="IRI Logo"> </a> <button id="mobile-menu-close-button" class="text-gray-500 hover:text-gray-700" aria-label="Close main menu"> <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> </button> </div>
+             <nav class="flex flex-col space-y-4"> <a href="#why-join" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Why Join Us</a> <a href="#life" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Life Here</a> <a href="#opportunities" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Opportunities</a> <a href="#ecosystem" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Ecosystem</a> <a href="#apply" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Apply</a> </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Hero Section -->
+        <section id="hero" class="h-screen flex items-center justify-center text-center text-white relative overflow-hidden z-20">
+             <!-- Ensure Hero has a higher z-index than subsequent content but below the header -->
+            <video id="hero-video" poster="assets/hero_poster.jpg" autoplay muted loop playsinline> <source src="assets/intropm.mp4" type="video/mp4"> Your browser does not support the video tag. </video>
+            <div class="absolute inset-0 bg-gray-900/60 z-0"></div>
+            <div class="relative z-10 p-4 mt-16 md:mt-20">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight animate-on-scroll"> Shape the Future of Robotics </h1>
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto animate-on-scroll" style="transition-delay: 0.2s;"> Join a global community of researchers and innovators at IRI. </p>
+                <a href="#opportunities" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 animate-on-scroll" style="transition-delay: 0.4s;"> Explore Roles </a>
+            </div>
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce hidden md:block z-10"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg> </div>
+        </section>
+
+        <!-- Fixed Background Container -->
+         <div id="why-join-background-container">
+             <img data-bg-id="0" src="assets/why1.png" alt="Background 1" class="">
+             <img data-bg-id="1" src="assets/why2.jpg" alt="Background 2" class="">
+             <img data-bg-id="2" src="assets/why3.png" alt="Background 3" class="">
+             <img data-bg-id="3" src="assets/staff.png" alt="Background 4" class="">
+
+        </div>
+
+        <!-- 2. Why Join Us Section -->
+        <!-- Added position:relative and z-index:10 -->
+        <section id="why-join" class="relative z-10 pt-16 md:pt-24 pb-32 md:pb-64">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-16 md:mb-32 "animate-on-scroll> Why Join IRI? </h2>
+                <div class="space-y-32 md:space-y-64 lg:space-y-96">
+                    <!-- Card 1 -->
+                    <div class="why-join-card md:w-7/12 lg:w-1/2 md:mr-auto p-6 bg-white rounded-lg shadow-xl animate-on-scroll relative z-150" data-bg-index="0">
+                         <div class="mb-4 inline-block p-3 rounded-full bg-blue-100"> <svg class="h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17.25v-.035a.75.75 0 01.75-.715h3a.75.75 0 01.75.715v.035m-4.5 2.25v.035a.75.75 0 00.75.715h3a.75.75 0 00.75-.715v-.035M15.75 9.75v-.036a.75.75 0 01.75-.714h.01a.75.75 0 01.75.714v.036M13.5 9.75v-.036a.75.75 0 00-.75-.714h-.01a.75.75 0 00-.75.714v.036m-3-4.5v.036A.75.75 0 019.75 5.25h.01a.75.75 0 01.75.714v-.036M15 5.25v.036a.75.75 0 00.75.714h.01a.75.75 0 00.75-.714v-.036M10.5 18.75v-.035a.75.75 0 01.75-.715h1.5a.75.75 0 01.75.715v.035m-3 0h3M7.5 12.75h9M12 17.25a5.23 5.23 0 00-1.794-.357 5.217 5.217 0 00-3.412.087 1.5 1.5 0 00-.788 1.38V19.5a.75.75 0 00.75.75h7.5a.75.75 0 00.75-.75v-.908a1.5 1.5 0 00-.788-1.38 5.217 5.217 0 00-3.412-.087A5.23 5.23 0 0012 17.25zM12 3c-1.84 0-3.54.7-4.8 1.87-.3.27-.3.73 0 1L12 12l4.8-6.13c.3-.27.3-.73 0-1C15.54 3.7 13.84 3 12 3z" /></svg> </div>
+                         <h3 class="text-xl font-semibold text-gray-800 mb-2">🧠 Cutting-Edge Research</h3> <p class="text-gray-600">The institute, founded in 1995, is a key player in the Spanish robotics and automatic control scenes, and a valued participant in a large number of international collaborations. The research of PERCEPTION AND MANIPULATION group focuses on enhancing the perception, learning, and planning capabilities of robots to achieve higher degrees of autonomy and user-friendliness during everyday manipulation tasks.</p>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="why-join-card md:w-7/12 lg:w-1/2 md:ml-auto p-6 bg-white rounded-lg shadow-xl animate-on-scroll relative z-10" data-bg-index="1">
+                          <div class="mb-4 inline-block p-3 rounded-full bg-blue-100"> <svg class="h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-.778.099-1.533.284-2.253M12 21a9.004 9.004 0 008.716-6.747" /></svg> </div>
+                         <h3 class="text-xl font-semibold text-gray-800 mb-2">🌍 Global Collaborations</h3> <p class="text-gray-600">IRI plays a pivotal role in both national and international robotics research. As a member of euRobotics, IRI collaborates with a diverse array of stakeholders to drive the European robotics agenda forward. Furthermore, its co-direction of the ELLIS Unit Barcelona underscores its dedication to excellence in machine learning and artificial intelligence research. IRI also contributes to the Confederation of Laboratories for Artificial Intelligence Research in Europe (CLAIRE), promoting synergy among AI research labs across the continent. Through these collaborations, IRI not only enhances its research capabilities but also plays a significant role in shaping the future of robotics and informatics on a global scale.</p>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="why-join-card md:w-7/12 lg:w-1/2 md:mr-auto p-6 bg-white rounded-lg shadow-xl animate-on-scroll relative z-10" data-bg-index="2">
+                          <div class="mb-4 inline-block p-3 rounded-full bg-blue-100"> <svg class="h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 .75H3m18 0h-1.5M8.25 15v1.5M12 15v1.5M15.75 15v1.5M8.25 18v1.5m.75-6.75h.75a.75.75 0 01.75.75v3.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75V12a.75.75 0 01.75-.75zm3 0h.75a.75.75 0 01.75.75v3.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75V12a.75.75 0 01.75-.75zm3 0h.75a.75.75 0 01.75.75v3.75a.75.75 0 01-.75.75h-.75a.75.75 0 01-.75-.75V12a.75.75 0 01.75-.75zM12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9z" /></svg> </div>
+                         <h3 class="text-xl font-semibold text-gray-800 mb-2">🤖 Advanced Infrastructure</h3> <p class="text-gray-600">The Perception and Manipulation Laboratory occupies 142 m² in the second floor of the Faculty, and a large part hosts a life-scale mock-up of a (quite) small apartment (35 m²). Its equipped with IoT sensors, two Tiago mobile manipulator robots, one Ari social robot, one Temi robot, Hello Robot Stretch unit, two Kinova robotic arms, two WAM robot arms, XSens motion capture suit, 3D cameras, force sensors and 3D scanners. There is the Scientific and Technical Lab support office.
+
+The Laboratory is further equipped with commercial and self-developed grippers, sensing devices, and augmented reality appliances. Laboratory service offers quick experimental setup, several standardized software tools, and expertise in robot control and perception algorithms.</p>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="why-join-card md:w-7/12 lg:w-1/2 md:ml-auto p-6 bg-white rounded-lg shadow-xl animate-on-scroll relative z-10" data-bg-index="3">
+                          <div class="mb-4 inline-block p-3 rounded-full bg-blue-100"> <svg class="h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" /></svg> </div>
+                         <h3 class="text-xl font-semibold text-gray-800 mb-2">🫂 Supportive Teams</h3> <p class="text-gray-600">Thrive in a collaborative...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Life at the Institute Section -->
+        <!-- Added position:relative and z-index:10 and bg-white -->
+        <section id="life" class="relative z-10 py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 md:mb-16 animate-on-scroll"> Life at IRI </h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12 md:mb-16">
+                    <!-- Images should be placed here -->
+                    <img src="https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Research+Collaboration" alt="..." class="rounded-lg shadow-md object-cover aspect-video animate-on-scroll transition-transform duration-300 hover:scale-105">
+                    <img src="https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Robot+Interaction" alt="..." class="rounded-lg shadow-md object-cover aspect-video animate-on-scroll transition-transform duration-300 hover:scale-105" style="transition-delay: 0.1s;">
+                    <img src="https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Lab+Environment" alt="..." class="rounded-lg shadow-md object-cover aspect-video animate-on-scroll transition-transform duration-300 hover:scale-105" style="transition-delay: 0.2s;">
+                    <img src="https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Team+Meeting" alt="..." class="rounded-lg shadow-md object-cover aspect-video animate-on-scroll md:col-span-1 transition-transform duration-300 hover:scale-105" style="transition-delay: 0.3s;">
+                    <img src="https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Social+Event" alt="..." class="rounded-lg shadow-md object-cover aspect-video animate-on-scroll transition-transform duration-300 hover:scale-105" style="transition-delay: 0.4s;">
+                    <img src="https://via.placeholder.com/600x400/e2e8f0/94a3b8?text=Presentation" alt="..." class="rounded-lg shadow-md object-cover aspect-video animate-on-scroll transition-transform duration-300 hover:scale-105" style="transition-delay: 0.5s;">
+                </div>
+                <div class="space-y-8 md:space-y-0 md:grid md:grid-cols-1 lg:grid-cols-2 md:gap-12">
+                    <blockquote class="p-6 bg-gray-50 rounded-lg border-l-4 border-blue-600 animate-on-scroll"> <p class="text-gray-700 italic mb-4">"The collaborative spirit..."</p> <footer class="text-gray-600 font-medium">— Dr. Evelyn Reed...</footer> </blockquote>
+                     <blockquote class="p-6 bg-gray-50 rounded-lg border-l-4 border-blue-600 animate-on-scroll" style="transition-delay: 0.15s;"> <p class="text-gray-700 italic mb-4">"Access to cutting-edge..."</p> <footer class="text-gray-600 font-medium">— Kenji Tanaka...</footer> </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Open Opportunities Section -->
+        <!-- Added position:relative and z-index:10 and bg-red-300 -->
+        <section id="opportunities" class="relative z-10 py-16 md:py-24 bg-red-300">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 md:mb-16 animate-on-scroll"> Open Opportunities </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md flex flex-col animate-on-scroll transition-all duration-300 ease-in-out hover:scale-[1.03] hover:shadow-xl"> <h3 class="text-xl font-semibold text-gray-900 mb-2">Postdoctoral Researcher - HRI</h3> <p class="text-gray-600 text-sm mb-4 flex-grow">Develop intuitive interfaces and collaborative behaviors for assistive robots. PhD in CS, Robotics, or related field required.</p> <div class="mb-4 space-x-2"> <span class="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">HRI</span> <span class="inline-block bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded">AI/ML</span> <span class="inline-block bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">Postdoc</span> </div> <a href="#" class="mt-auto inline-block text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out"> Learn More & Apply </a> </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md flex flex-col animate-on-scroll transition-all duration-300 ease-in-out hover:scale-[1.03] hover:shadow-xl" style="transition-delay: 0.1s;"> <h3 class="text-xl font-semibold text-gray-900 mb-2">Robotics Software Engineer - Perception</h3> <p class="text-gray-600 text-sm mb-4 flex-grow">Design and implement perception systems for autonomous robots (sensor fusion, object detection, SLAM). Strong C++/Python needed.</p> <div class="mb-4 space-x-2"> <span class="inline-block bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded">Perception</span> <span class="inline-block bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">C++/Python</span> <span class="inline-block bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">Engineering</span> </div> <a href="#" class="mt-auto inline-block text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out"> Learn More & Apply </a> </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md flex flex-col animate-on-scroll transition-all duration-300 ease-in-out hover:scale-[1.03] hover:shadow-xl" style="transition-delay: 0.2s;"> <h3 class="text-xl font-semibold text-gray-900 mb-2">PhD Position - Legged Robot Control</h3> <p class="text-gray-600 text-sm mb-4 flex-grow">Investigate novel control strategies for dynamic locomotion/manipulation using legged robots. Background in control theory/dynamics.</p> <div class="mb-4 space-x-2"> <span class="inline-block bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Control Systems</span> <span class="inline-block bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">Legged Robots</span> <span class="inline-block bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">PhD</span> </div> <a href="#" class="mt-auto inline-block text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 ease-in-out"> Learn More & Apply </a> </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Our Ecosystem Section -->
+        <!-- Added position:relative and z-index:10 and bg-white -->
+        <section id="ecosystem" class="relative z-10 py-16 md:py-24 bg-white">
+             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 md:mb-16 animate-on-scroll"> Our Collaborative Ecosystem </h2>
+                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12 lg:gap-16 animate-on-scroll">
+                    <!-- Partner Logos -->
+                    <div class="text-center filter grayscale hover:filter-none transition duration-300 ease-in-out transform hover:scale-110"> <img src="..." alt="UPC..." class="h-10 mx-auto"> <span class="block text-sm text-gray-500 mt-1">UPC</span> </div>
+                    <div class="text-center filter grayscale hover:filter-none transition duration-300 ease-in-out transform hover:scale-110"> <img src="..." alt="CSIC..." class="h-10 mx-auto"> <span class="block text-sm text-gray-500 mt-1">CSIC</span> </div>
+                    <div class="text-center filter grayscale hover:filter-none transition duration-300 ease-in-out transform hover:scale-110"> <img src="..." alt="Industry Partner" class="h-10 mx-auto"> <span class="block text-sm text-gray-500 mt-1">Industry Partner</span> </div>
+                    <div class="text-center filter grayscale hover:filter-none transition duration-300 ease-in-out transform hover:scale-110"> <img src="..." alt="European Project" class="h-10 mx-auto"> <span class="block text-sm text-gray-500 mt-1">EU Project</span> </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. How to Apply Section -->
+        <!-- Added position:relative and z-index:10 and bg-gray-800 -->
+        <section id="apply" class="relative z-10 py-16 md:py-24 bg-gray-800 text-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                 <h2 class="text-3xl md:text-4xl font-bold mb-6 animate-on-scroll"> Ready to Join Us? </h2>
+                <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto animate-on-scroll" style="transition-delay: 0.1s;"> Find detailed application instructions on each job posting. Don't see the perfect fit right now? </p>
+                <p class="text-xl font-semibold text-white mb-8 animate-on-scroll" style="transition-delay: 0.2s;"> We welcome spontaneous applications! </p>
+                <a href="mailto:careers@iri.upc.edu" class="inline-block bg-white hover:bg-gray-200 text-gray-800 font-semibold py-3 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 animate-on-scroll" style="transition-delay: 0.3s;"> Contact Recruitment </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+     <!-- Added position:relative and z-index:10 -->
+    <footer class="relative z-10 bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div> <h4 class="text-lg font-semibold text-white mb-4">Institut de Robòtica i Informàtica Industrial</h4> <p class="text-sm mb-2">C/ Llorens i Artigas, 4-6,<br>08028 Barcelona, Spain</p> <p class="text-sm mb-2">Email: <a href="mailto:info@iri.upc.edu" class="hover:text-blue-400 transition">info@iri.upc.edu</a></p> <p class="text-sm">Phone: <a href="tel:+34934015751" class="hover:text-blue-400 transition">+34 93 401 57 51</a></p> </div>
+                 <div> <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4> <ul class="space-y-2 text-sm"> <li><a href="#why-join" class="hover:text-blue-400 transition">Why Join Us</a></li> <li><a href="#opportunities" class="hover:text-blue-400 transition">Open Opportunities</a></li> <li><a href="#life" class="hover:text-blue-400 transition">Life at IRI</a></li> <li><a href="#apply" class="hover:text-blue-400 transition">How to Apply</a></li> <li><a href="https://iri.upc.edu/en" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition">Main IRI Website</a></li> </ul> </div>
+                <div> <h4 class="text-lg font-semibold text-white mb-4">Connect With Us</h4> <div class="flex space-x-4 mb-6"> <a href="#" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-400 transition" aria-label="LinkedIn"> <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014V8.59h2.9c.439 0 .793.357.793.793v1.176h.04c.385-.73 1.33-1.494 2.864-1.494 3.057 0 3.623 2.012 3.623 4.629v5.36H16.338zM6.6 7.11c-1.04 0-1.89-.85-1.89-1.89s.85-1.89 1.89-1.89 1.89.85 1.89 1.89-.85 1.89-1.89 1.89zm1.477 9.228h-2.95V8.59h2.95v7.748zM17.81 2H6.19C3.876 2 2 3.876 2 6.19v11.62C2 20.124 3.876 22 6.19 22h11.62c2.314 0 4.19-1.876 4.19-4.19V6.19C22 3.876 20.124 2 17.81 2z" clip-rule="evenodd" /></svg> </a> <a href="#" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-400 transition" aria-label="Twitter/X"> <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg> </a> </div> </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm"> &copy; <span id="current-year"></span> Institut de Robòtica i Informàtica Industrial (CSIC-UPC). All rights reserved. </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript (Updated) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Mobile Menu Logic (unchanged) ---
+            const menuButton = document.getElementById('mobile-menu-button');
+            const closeButton = document.getElementById('mobile-menu-close-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
+            menuButton.addEventListener('click', () => mobileMenu.classList.remove('hidden', 'translate-x-full'));
+            closeButton.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+                setTimeout(() => { if (mobileMenu.classList.contains('translate-x-full')) mobileMenu.classList.add('hidden'); }, 300);
+            });
+            mobileNavLinks.forEach(link => link.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+                setTimeout(() => { if (mobileMenu.classList.contains('translate-x-full')) mobileMenu.classList.add('hidden'); }, 300);
+            }));
+
+            // --- General Scroll Animations (unchanged) ---
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            const animationObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.intersectionRatio > 0.1) { // Trigger when 10% visible
+                        entry.target.classList.add('is-visible');
+                        // animationObserver.unobserve(entry.target); // Optional unobserve
+                    } else {
+                         // entry.target.classList.remove('is-visible'); // Optional re-hide
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => animationObserver.observe(el));
+
+            // --- Why Join Section Logic (Updated) ---
+            const whyJoinSection = document.getElementById('why-join');
+            const backgroundContainer = document.getElementById('why-join-background-container');
+            const backgroundImages = backgroundContainer ? backgroundContainer.querySelectorAll('img') : [];
+            const whyJoinCards = document.querySelectorAll('.why-join-card');
+
+            if (whyJoinSection && backgroundContainer && backgroundImages.length > 0 && whyJoinCards.length > 0) {
+
+                // Observer 1: Control Overall Visibility of Fixed Background
+                const sectionObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        // Check intersection ratio for more nuance if needed
+                        if (entry.isIntersecting) {
+                            backgroundContainer.classList.add('visible');
+                        } else {
+                            backgroundContainer.classList.remove('visible');
+                        }
+                    });
+                }, {
+                    threshold: 0 // Trigger as soon as any part enters/leaves
+                    // Adjust rootMargin here if needed, e.g., '-50px 0px -50px 0px'
+                });
+                sectionObserver.observe(whyJoinSection);
+
+                // Observer 2: Change Active Background Based on Card Position
+                const bgObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        // Only act if the container should be visible AND the card is intersecting the trigger zone
+                        if (backgroundContainer.classList.contains('visible') && entry.isIntersecting) {
+                            const bgIndex = entry.target.dataset.bgIndex;
+                            if (bgIndex !== undefined && backgroundImages[bgIndex]) {
+                                backgroundImages.forEach(img => img.classList.remove('active-bg'));
+                                backgroundImages[bgIndex].classList.add('active-bg');
+                            }
+                        }
+                    });
+                }, {
+                    threshold: 0.5, // 50% of card visible needed to trigger
+                    rootMargin: "-40% 0px -40% 0px" // Active zone is middle 20% of viewport
+                });
+                whyJoinCards.forEach(card => bgObserver.observe(card));
+
+                 // Set initial background: Find first card intersecting the TRIGGER ZONE on load
+                 setTimeout(() => {
+                    if (backgroundContainer.classList.contains('visible')) { // Only if section is visible initially
+                        let initialBgSet = false;
+                        const vh = window.innerHeight;
+                        const triggerZoneTop = vh * 0.4;
+                        const triggerZoneBottom = vh * 0.6;
+
+                        for (const card of whyJoinCards) {
+                            const cardRect = card.getBoundingClientRect();
+                            const bgIndex = card.dataset.bgIndex;
+                            // Check if card is vertically within the middle 40%-60% zone
+                            if (bgIndex !== undefined && backgroundImages[bgIndex] && cardRect.top < triggerZoneBottom && cardRect.bottom > triggerZoneTop) {
+                                backgroundImages[bgIndex].classList.add('active-bg');
+                                initialBgSet = true;
+                                break; // Exit after setting the first match
+                            }
+                        }
+                        // Fallback if no card is initially in the trigger zone but section is visible
+                        if (!initialBgSet && backgroundImages[0]) {
+                             backgroundImages[0].classList.add('active-bg');
+                        }
+                    }
+                 }, 150); // Delay for layout
+
+            } else {
+                console.warn("Parallax elements for #why-join not fully found or configured.");
+            }
+
+            // --- Footer Year (unchanged) ---
+            const yearSpan = document.getElementById('current-year');
+            if (yearSpan) { yearSpan.textContent = new Date().getFullYear(); }
+        });
+    </script>
+
+</body>
+</html>
