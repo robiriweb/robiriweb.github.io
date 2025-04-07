@@ -74,15 +74,28 @@
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16 md:h-20">
-                <div class="flex-shrink-0"> <a href="#hero" aria-label="Homepage"> <img class="h-10 md:h-12 w-auto" src="assets/iri_logo.png" alt="Institut de Robòtica i Informàtica Industrial Logo"> </a> </div>
-                <nav class="hidden md:flex space-x-8"> <a href="#why-join" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Why Join Us</a> <a href="#life" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Life Here</a> <a href="#opportunities" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Opportunities</a> <a href="#ecosystem" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Ecosystem</a> <a href="#apply" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Apply</a> </nav>
+                <!-- START: Added Grouping Div -->
+                <div class="flex items-center space-x-12">
+                    <!-- Existing Logo Div (unchanged internally) -->
+                    <div class="flex-shrink-0">
+                        <a href="#hero" aria-label="Homepage">
+                            <img class="h-10 md:h-12 w-auto" src="assets/iri_logo.png" alt="Institut de Robòtica i Informàtica Industrial Logo">
+                        </a>
+                    </div>
+                    <!-- NEW: Title Div -->
+                    <div class="hidden md:block font-bold text-gray-800 text-xs lg:text-xl xl:text-2xl">
+                        RobIRI: Robot Perception and Manipulation at IRI
+                    </div>
+                </div>
+                <!-- END: Added Grouping Div -->
+                <nav class="hidden md:flex space-x-8"> <a href="#why-join" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Why Join Us</a> <a href="#life-in-barcelona" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Life Here</a> <a href="#opportunities" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Opportunities</a> <a href="#ecosystem" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Ecosystem</a> <a href="#apply" class="text-gray-600 hover:text-blue-600 transition duration-150 ease-in-out">Apply</a> </nav>
                 <div class="md:hidden flex items-center"> <button id="mobile-menu-button" class="text-gray-600 hover:text-blue-600 focus:outline-none" aria-label="Open main menu"> <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg> </button> </div>
             </div>
         </div>
         <!-- Mobile Menu Panel -->
         <div id="mobile-menu" class="hidden fixed inset-y-0 right-0 w-64 bg-white shadow-xl z-60 p-6 transform translate-x-full md:hidden">
              <div class="flex justify-between items-center mb-8"> <a href="#hero" aria-label="Homepage"> <img class="h-8 w-auto" src="assets/iri_logo.png" alt="IRI Logo"> </a> <button id="mobile-menu-close-button" class="text-gray-500 hover:text-gray-700" aria-label="Close main menu"> <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> </button> </div>
-             <nav class="flex flex-col space-y-4"> <a href="#why-join" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Why Join Us</a> <a href="#life" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Life Here</a> <a href="#opportunities" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Opportunities</a> <a href="#ecosystem" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Ecosystem</a> <a href="#apply" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Apply</a> </nav>
+             <nav class="flex flex-col space-y-4"> <a href="#why-join" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Why Join Us</a> <a href="#life-in-barcelona" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Life Here</a> <a href="#opportunities" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Opportunities</a> <a href="#ecosystem" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Ecosystem</a> <a href="#apply" class="mobile-nav-link text-gray-700 hover:text-blue-600 block py-2">Apply</a> </nav>
         </div>
     </header>
 
@@ -262,112 +275,167 @@ The Laboratory is further equipped with commercial and self-developed grippers, 
 
     <!-- JavaScript (Updated) -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Mobile Menu Logic (unchanged) ---
-            const menuButton = document.getElementById('mobile-menu-button');
-            const closeButton = document.getElementById('mobile-menu-close-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileNavLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
-            menuButton.addEventListener('click', () => mobileMenu.classList.remove('hidden', 'translate-x-full'));
-            closeButton.addEventListener('click', () => {
-                mobileMenu.classList.add('translate-x-full');
-                setTimeout(() => { if (mobileMenu.classList.contains('translate-x-full')) mobileMenu.classList.add('hidden'); }, 300);
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Mobile Menu Logic (Unchanged) ---
+        const menuButton = document.getElementById('mobile-menu-button');
+        const closeButton = document.getElementById('mobile-menu-close-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
+        menuButton.addEventListener('click', () => mobileMenu.classList.remove('hidden', 'translate-x-full'));
+        closeButton.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+            // Add delay to ensure animation completes before adding hidden if needed
+            setTimeout(() => { if (mobileMenu.classList.contains('translate-x-full')) mobileMenu.classList.add('hidden'); }, 300);
+        });
+        mobileNavLinks.forEach(link => link.addEventListener('click', () => {
+            mobileMenu.classList.add('translate-x-full');
+            setTimeout(() => { if (mobileMenu.classList.contains('translate-x-full')) mobileMenu.classList.add('hidden'); }, 300);
+        }));
+
+        // --- General Scroll Animations (Unchanged) ---
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        const animationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { // Changed condition slightly for clarity
+                    entry.target.classList.add('is-visible');
+                    // Optional: Stop observing after animation
+                    // animationObserver.unobserve(entry.target);
+                } else {
+                    // Optional: Re-hide when scrolling out of view
+                    // entry.target.classList.remove('is-visible');
+                }
             });
-            mobileNavLinks.forEach(link => link.addEventListener('click', () => {
-                mobileMenu.classList.add('translate-x-full');
-                setTimeout(() => { if (mobileMenu.classList.contains('translate-x-full')) mobileMenu.classList.add('hidden'); }, 300);
-            }));
+        }, { threshold: 0.1 }); // Trigger when 10% is visible
+        animatedElements.forEach(el => animationObserver.observe(el));
 
-            // --- General Scroll Animations (unchanged) ---
-            const animatedElements = document.querySelectorAll('.animate-on-scroll');
-            const animationObserver = new IntersectionObserver((entries) => {
+        // --- Why Join Section Logic (MODIFIED) ---
+        const whyJoinSection = document.getElementById('why-join');
+        const backgroundContainer = document.getElementById('why-join-background-container');
+        const backgroundImages = backgroundContainer ? Array.from(backgroundContainer.querySelectorAll('img')) : []; // Use Array.from for easier methods
+        const whyJoinCards = document.querySelectorAll('.why-join-card');
+        let currentlyActiveBgIndex = -1; // Track active index
+
+        if (whyJoinSection && backgroundContainer && backgroundImages.length > 0 && whyJoinCards.length > 0) {
+
+            // Observer 1: Control Overall Visibility of Fixed Background (Unchanged)
+            const sectionObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.intersectionRatio > 0.1) { // Trigger when 10% visible
-                        entry.target.classList.add('is-visible');
-                        // animationObserver.unobserve(entry.target); // Optional unobserve
+                    if (entry.isIntersecting) {
+                        console.log("Section intersecting, making background visible.");
+                        backgroundContainer.classList.add('visible');
+                        // When section becomes visible, check if an initial background needs setting
+                        checkAndSetInitialBackground();
                     } else {
-                         // entry.target.classList.remove('is-visible'); // Optional re-hide
+                        console.log("Section not intersecting, hiding background.");
+                        backgroundContainer.classList.remove('visible');
+                        // Reset active index when section is hidden
+                        currentlyActiveBgIndex = -1;
+                        backgroundImages.forEach(img => img.classList.remove('active-bg'));
                     }
                 });
-            }, { threshold: 0.1 });
-            animatedElements.forEach(el => animationObserver.observe(el));
+            }, {
+                threshold: 0 // Trigger as soon as any part enters/leaves
+            });
+            sectionObserver.observe(whyJoinSection);
 
-            // --- Why Join Section Logic (Updated) ---
-            const whyJoinSection = document.getElementById('why-join');
-            const backgroundContainer = document.getElementById('why-join-background-container');
-            const backgroundImages = backgroundContainer ? backgroundContainer.querySelectorAll('img') : [];
-            const whyJoinCards = document.querySelectorAll('.why-join-card');
+            // Observer 2: Change Active Background Based on Card Position (MODIFIED rootMargin)
+            const bgObserver = new IntersectionObserver((entries) => {
+                if (!backgroundContainer.classList.contains('visible')) {
+                    // console.log("BG Observer fired, but container not visible. Skipping.");
+                    return; // Don't do anything if the main container isn't visible
+                }
 
-            if (whyJoinSection && backgroundContainer && backgroundImages.length > 0 && whyJoinCards.length > 0) {
-
-                // Observer 1: Control Overall Visibility of Fixed Background
-                const sectionObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        // Check intersection ratio for more nuance if needed
-                        if (entry.isIntersecting) {
-                            backgroundContainer.classList.add('visible');
-                        } else {
-                            backgroundContainer.classList.remove('visible');
-                        }
-                    });
-                }, {
-                    threshold: 0 // Trigger as soon as any part enters/leaves
-                    // Adjust rootMargin here if needed, e.g., '-50px 0px -50px 0px'
+                // Find the entry that is 'most intersecting' within the rootMargin or simply the last one intersecting
+                let bestEntry = null;
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                       // console.log(`BG Observer: Card ${entry.target.dataset.bgIndex} IS intersecting.`);
+                       bestEntry = entry; // Keep track of the latest intersecting entry in this batch
+                    } else {
+                       // console.log(`BG Observer: Card ${entry.target.dataset.bgIndex} is NOT intersecting.`);
+                    }
                 });
-                sectionObserver.observe(whyJoinSection);
 
-                // Observer 2: Change Active Background Based on Card Position
-                const bgObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        // Only act if the container should be visible AND the card is intersecting the trigger zone
-                        if (backgroundContainer.classList.contains('visible') && entry.isIntersecting) {
-                            const bgIndex = entry.target.dataset.bgIndex;
-                            if (bgIndex !== undefined && backgroundImages[bgIndex]) {
-                                backgroundImages.forEach(img => img.classList.remove('active-bg'));
-                                backgroundImages[bgIndex].classList.add('active-bg');
+                if (bestEntry) {
+                    const targetBgIndex = parseInt(bestEntry.target.dataset.bgIndex, 10);
+                    // console.log(`BG Observer: Best intersecting card is ${targetBgIndex}. Current active is ${currentlyActiveBgIndex}`);
+
+                    if (!isNaN(targetBgIndex) && backgroundImages[targetBgIndex] && targetBgIndex !== currentlyActiveBgIndex) {
+                        console.log(`---> CHANGING background from ${currentlyActiveBgIndex} to ${targetBgIndex}`);
+                        backgroundImages.forEach((img, idx) => {
+                            if (idx === targetBgIndex) {
+                                img.classList.add('active-bg');
+                            } else {
+                                img.classList.remove('active-bg');
                             }
-                        }
-                    });
-                }, {
-                    threshold: 0.5, // 50% of card visible needed to trigger
-                    rootMargin: "-40% 0px -40% 0px" // Active zone is middle 20% of viewport
-                });
-                whyJoinCards.forEach(card => bgObserver.observe(card));
+                        });
+                        currentlyActiveBgIndex = targetBgIndex; // Update tracked index
+                    } else if (targetBgIndex === currentlyActiveBgIndex) {
+                        // console.log(`---> Background ${targetBgIndex} already active.`);
+                    } else {
+                       // console.warn(`---> Invalid targetBgIndex (${targetBgIndex}) or image not found.`);
+                    }
+                }
+                // Note: No 'else' needed here. If nothing is intersecting the trigger zone,
+                // the background simply stays on the last activated image until a new intersection occurs.
 
-                 // Set initial background: Find first card intersecting the TRIGGER ZONE on load
-                 setTimeout(() => {
-                    if (backgroundContainer.classList.contains('visible')) { // Only if section is visible initially
-                        let initialBgSet = false;
-                        const vh = window.innerHeight;
-                        const triggerZoneTop = vh * 0.4;
-                        const triggerZoneBottom = vh * 0.6;
+            }, {
+                threshold: 0.5, // Card needs to be 50% visible within the rootMargin
+                // *** Use Pixel-based rootMargin ***
+                // This defines the trigger zone: 200px from top, 200px from bottom.
+                // Adjust these values based on testing on various mobile sizes!
+                rootMargin: "-200px 0px -200px 0px"
+            });
 
-                        for (const card of whyJoinCards) {
-                            const cardRect = card.getBoundingClientRect();
-                            const bgIndex = card.dataset.bgIndex;
-                            // Check if card is vertically within the middle 40%-60% zone
-                            if (bgIndex !== undefined && backgroundImages[bgIndex] && cardRect.top < triggerZoneBottom && cardRect.bottom > triggerZoneTop) {
-                                backgroundImages[bgIndex].classList.add('active-bg');
-                                initialBgSet = true;
-                                break; // Exit after setting the first match
+            whyJoinCards.forEach(card => bgObserver.observe(card));
+
+            // Function to check cards on load/section visibility (Replaces setTimeout logic)
+            function checkAndSetInitialBackground() {
+                // Only run if background isn't already set and container is visible
+                if (currentlyActiveBgIndex === -1 && backgroundContainer.classList.contains('visible')) {
+                    console.log("Checking for initial background to set...");
+                    let initialCardFound = false;
+                    for (const card of whyJoinCards) {
+                        const rect = card.getBoundingClientRect();
+                        const viewportHeight = window.innerHeight;
+                        // Check if the card is roughly within the trigger zone defined by rootMargin
+                        // (This is an approximation, IntersectionObserver is more precise)
+                        const topMargin = 200; // Must match rootMargin top value
+                        const bottomMargin = 200; // Must match rootMargin bottom value
+
+                        if (rect.top < (viewportHeight - bottomMargin) && rect.bottom > topMargin) {
+                            const initialBgIndex = parseInt(card.dataset.bgIndex, 10);
+                            if (!isNaN(initialBgIndex) && backgroundImages[initialBgIndex]) {
+                                console.log(`Setting initial background to ${initialBgIndex} based on card position.`);
+                                backgroundImages.forEach((img, idx) => {
+                                    img.classList.toggle('active-bg', idx === initialBgIndex);
+                                });
+                                currentlyActiveBgIndex = initialBgIndex;
+                                initialCardFound = true;
+                                break; // Set the first one found
                             }
-                        }
-                        // Fallback if no card is initially in the trigger zone but section is visible
-                        if (!initialBgSet && backgroundImages[0]) {
-                             backgroundImages[0].classList.add('active-bg');
                         }
                     }
-                 }, 150); // Delay for layout
-
-            } else {
-                console.warn("Parallax elements for #why-join not fully found or configured.");
+                    // Fallback: If no card is in the zone but section is visible, set the first image
+                    if (!initialCardFound && backgroundImages[0]) {
+                        console.log("No card in trigger zone initially, setting fallback background 0.");
+                        backgroundImages.forEach((img, idx) => {
+                            img.classList.toggle('active-bg', idx === 0);
+                        });
+                        currentlyActiveBgIndex = 0;
+                    }
+                }
             }
 
-            // --- Footer Year (unchanged) ---
-            const yearSpan = document.getElementById('current-year');
-            if (yearSpan) { yearSpan.textContent = new Date().getFullYear(); }
-        });
-    </script>
+        } else {
+            console.warn("Parallax elements for #why-join not fully found or configured.");
+        }
+
+        // --- Footer Year (Unchanged) ---
+        const yearSpan = document.getElementById('current-year');
+        if (yearSpan) { yearSpan.textContent = new Date().getFullYear(); }
+    });
+</script>
 
 </body>
 </html>
